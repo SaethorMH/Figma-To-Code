@@ -1,8 +1,44 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import Hero from "@components/Hero.astro";
+import Hero from "@components/Frontpage/Hero.astro";
+import CircleSection from "@components/Frontpage/CircleSection.astro";
+import Section from "@components/Frontpage/Section.astro";
 ---
 
-<Layout>
+<Layout title="Frontpage">
   <Hero />
+
+  <Section
+    title="What To Expect"
+    subtitle="WE'LL WORK WITH YOU"
+    text="Our collaboration is built on transparency, efficiency, and measurable results. Together, we create strategies tailored to your unique needs and goals."
+  >
+    <p>
+      Collaborate to build actionable strategies that drive sustainable growth
+      and deliver tangible outcomes.
+    </p>
+    <p>
+      Identify opportunities to optimize processes and implement impactful
+      solutions with measurable results.
+    </p></Section
+  >
+  <Section
+    title="Financial Projections"
+    subtitle="FINANCIAL TOOLS"
+    text="Financial projections are essential for planning and monitoring a company’s performance. They provide insights into potential revenue, expenses, and profitability over specific periods."
+    theme="light"
+  >
+    <h2>HERE THERE WILL BE A LISTED SLIDER</h2>
+  </Section>
+
+  <CircleSection />
+  <Section
+    title="Our core values & principles"
+    subtitle="GROWING WITH OUR CLIENTS"
+    text="Capitalize on low hanging fruit to identify a ballpark value added activity beta test. Override the digital divide with additional from DevOps."
+    theme="dark"
+  >
+    /****KNAP OG 4 values/principles *********/
+  </Section>
+  <Section> /********3 */ </Section>
 </Layout>

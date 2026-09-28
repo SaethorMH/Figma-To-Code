@@ -1,0 +1,68 @@
+---
+const { value, title } = Astro.props;
+---
+
+<figure data-value={value}>
+  <svg viewBox="0 0 100 100">
+    <circle class="track"></circle>
+    <circle class="progress" pathLength="100"></circle>
+    <circle class="marker" r="5" fill="black" stroke="#fff"></circle>
+  </svg>
+  <figcaption>{title}</figcaption>
+</figure>
+
+<style>
+  figure {
+    flex: 0 1 200px;
+    min-inline-size: 0;
+    text-align: center;
+    container: circle / inline-size;
+    --valuePct: attr(data-value %, 0%);
+    --valueStr: attr(data-value, 0);
+    --value: attr(data-value number, 0);
+    display: grid;
+    grid: "stack";
+    place-items: center;
+  }
+
+  figure::after {
+    content: var(--valueStr) "%";
+    grid-area: stack;
+    font-size: 25cqw;
+  }
+
+  svg {
+    rotate: -90deg;
+    grid-area: stack;
+  }
+
+  .track {
+    stroke: #0002;
+  }
+
+  .track,
+  .progress {
+    cx: 50;
+    cy: 50;
+    r: 42;
+    fill: none;
+    stroke-width: 4;
+  }
+
+  .progress {
+    stroke: #fff;
+    stroke-linecap: round;
+    stroke-dasharray: 100;
+    stroke-dashoffset: calc(100 - var(--value));
+  }
+
+  .marker {
+    stroke-width: 2px;
+    offset-path: circle(42px at 50px 50px);
+    offset-distance: var(--valuePct);
+  }
+
+  figcaption {
+    margin-block-start: 0.75rem;
+  }
+</style>

@@ -1,0 +1,35 @@
+---
+const { name } = Astro.props;
+---
+
+<button popovertarget={name}> {name} </button>
+<div id={name} popover>
+  <slot />
+</div>
+<style>
+  button {
+    /* anchor-name: --anchor; */
+    height: 2rem;
+    background-color: var(--color-on-ui-primary);
+    color: var(--color-text);
+  }
+  [popover] {
+    opacity: 0;
+    transform: translateY(-5rem);
+    /* position: absolute;
+      position-anchor: --anchor; */
+    position-area: bottom span-left;
+    transition: 1s allow-discrete;
+  }
+  [popover]:popover-open {
+    opacity: 1;
+    transform: translateY(0rem);
+  }
+  @starting-style {
+    [popover]:popover-open {
+      opacity: 0;
+      transform: translateY(-5rem);
+      transition-behavior: allow-discrete;
+    }
+  }
+</style>

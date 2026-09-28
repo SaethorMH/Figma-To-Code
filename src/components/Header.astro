@@ -1,0 +1,81 @@
+---
+import PopoverBtn from "./Buttons/PopoverBtn.astro";
+import Logo from "./Tiny Components/Logo.astro";
+---
+
+<header>
+  <div class="headerContainer">
+    <Logo />
+    <nav>
+      <ul>
+        <li>Home</li>
+        <li>Case Studies</li>
+        <li>Team</li>
+        <li>About</li>
+      </ul>
+    </nav>
+
+    <burger>
+      <button popovertarget="menu">Menu</button>
+      <div popover id="menu">
+        <ul>
+          <li>Home</li>
+          <li>Case Studies</li>
+          <li>Team</li>
+          <li>About</li>
+        </ul>
+      </div>
+    </burger>
+    <PopoverBtn name="login">
+      <h2>Login Here!</h2>
+      <p>username</p>
+      <input type="text" />
+      <p>password</p>
+      <input type="text" />
+    </PopoverBtn>
+  </div>
+</header>
+
+<style>
+  @layer components {
+    header {
+      grid-column: full;
+      display: grid;
+
+      grid-template-columns: subgrid;
+      background-color: var(--color-ui-primary);
+      color: var(--color-on-ui-primary);
+      max-height: 2rem;
+      z-index: 2;
+      > * {
+        grid-area: content;
+      }
+    }
+    .headerContainer {
+      container: header / inline-size;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      ul {
+        display: flex;
+        list-style: none;
+        li {
+          font-size: 0.2rem;
+          margin-inline: 0.4rem;
+        }
+      }
+    }
+    burger {
+      display: none;
+      @container header (width<500px) {
+        display: inline-block;
+      }
+    }
+    nav {
+      display: block;
+      @container header (width<500px) {
+        display: none;
+      }
+    }
+  }
+</style>

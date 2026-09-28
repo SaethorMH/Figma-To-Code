@@ -3,7 +3,15 @@
 html {
   font-family: var(--font-lato);
 }
-
+body {
+  display: grid;
+  grid-template-columns:
+    [full-start] 1fr [content-start] minmax(0, 75rem)
+    [content-end] 1fr [full-end];
+  > * {
+    grid-column: content;
+  }
+}
 h1,
 h2,
 h3 {

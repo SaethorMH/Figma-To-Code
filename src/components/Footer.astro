@@ -1,0 +1,25 @@
+---
+
+---
+
+<footer>
+  <h1>HER ER DER EN FOOTER</h1>
+</footer>
+
+<style>
+  @layer components {
+    footer {
+      display: grid;
+      grid-template-columns: subgrid;
+      color: white;
+      grid-column: full;
+      background-color: black;
+      height: 20px;
+      place-self: end;
+
+      > * {
+        grid-area: content;
+      }
+    }
+  }
+</style>
