@@ -1,0 +1,111 @@
+---
+const { value, title } = Astro.props;
+---
+
+<figure data-value={value} class="animation">
+  <svg viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="42" class="track"></circle>
+    <circle cx="50" cy="50" r="42" class="progress" pathLength="100"></circle>
+    <circle class="marker" r="5"></circle>
+  </svg>
+  <figcaption>{title}</figcaption>
+</figure>
+
+<style>
+  /* @keyframes --anim {
+    to {
+      rotate: 1turn;
+    }
+  }
+  .animation {
+    animation: --anim 1s linear;
+    timeline-trigger: --a view() entry 100% exit 0% / cover;
+    trigger-animation: --a play-forwards reset;
+    
+    animation-timeline:view();
+    animation-range:contain 20% contain 90%;
+  } */
+  @property --usedValue {
+    syntax: "<number>";
+    inherits: true;
+    initial-value: 0;
+  }
+  figure {
+    animation: --a linear both;
+    animation-timeline: view();
+    animation-range: contain 5% contain 10%;
+    > *,
+    &::after {
+      transition: --usedValue 1.5s ease;
+    }
+  }
+
+  @keyframes --a {
+    from {
+      --sentinel: 0;
+    }
+    to {
+      --sentinel: 1;
+    }
+  }
+  figure {
+    --total: calc(100 - var(--usedValue));
+    flex: 0 1 200px;
+    min-inline-size: 0;
+    text-align: center;
+    container: circle / inline-size;
+    --valuePct: calc(var(--usedValue) * 1%);
+    --valueStr: attr(data-value, 0);
+    --value: attr(data-value type(<number>), 0);
+    --usedValue: calc(var(--value) * var(--sentinel));
+    display: grid;
+    grid: "stack";
+    place-items: center;
+  }
+
+  figure::after {
+    counter-set: val round(var(--usedValue));
+    content: counter(val, decimal-leading-zero) "%";
+    grid-area: stack;
+    font-size: 25cqw;
+  }
+
+  svg {
+    rotate: -90deg;
+    grid-area: stack;
+  }
+
+  .track {
+    stroke: #0002;
+  }
+
+  .track,
+  .progress {
+    cx: 50;
+    cy: 50;
+    r: 42;
+    fill: none;
+    stroke-width: 4;
+  }
+
+  .progress {
+    stroke: var(--color-on-ui-primary);
+    stroke-linecap: round;
+    stroke-dasharray: 100;
+    /* stroke-dashoffset: calc(100 - var(--value)); */
+    stroke-dashoffset: calc(100 - var(--usedValue));
+  }
+
+  .marker {
+    stroke-width: 2px;
+    offset-path: circle(42px at 50px 50px);
+    offset-distance: calc(var(--usedValue) * 1%);
+
+    stroke: var(--color-on-ui-primary);
+    fill: var(--color-ui-primary);
+  }
+
+  figcaption {
+    margin-block-start: 0.75rem;
+  }
+</style>

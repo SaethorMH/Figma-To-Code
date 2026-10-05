@@ -1,0 +1,88 @@
+---
+import { Image } from "astro:assets";
+import { getTeamMembers } from "@lib/api";
+import Instagram from "@icons/instagram.svg";
+import Facebook from "@icons/facebook.svg";
+const { id, employee } = Astro.props;
+// export async function getStaticPaths() {
+//   const team = await getTeamMembers();
+
+//   return team.map((employee) => ({
+//     params: { slug: employee.slug },
+//     props: { employee },
+//   }));
+
+const social_icons = { instagram: Instagram, facebook: Facebook };
+---
+
+<li class="cardContainer">
+  <a href={`/team/${employee.slug}`}>
+    <Image
+      style={`view-transition-name: img-${employee.slug}`}
+      src={employee.image.src}
+      alt={employee.image.alt}
+      width={employee.image.width}
+      height={employee.image.height}
+    />
+    <h4>{employee.name}</h4>
+    <p class="employeeTitle">{employee.title}</p>
+  </a>
+  <p class="description">{employee.description}</p>
+  <div class="slContainer">
+    {
+      employee.social_links.map((sl) => {
+        const Icon = social_icons[sl.icon];
+        return <a href={sl.url}>{Icon && <Icon />}</a>;
+      })
+    }
+  </div>
+</li>
+
+<style>
+  @layer Components {
+    .cardContainer {
+      container: card / inline-size;
+      anchor-scope: --imgAnchor;
+
+      max-inline-size: 100%;
+      min-inline-size: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: var(--small-spacing);
+
+      img {
+        border-radius: var(--small-radius);
+        anchor-name: --imgAnchor;
+      }
+      a {
+        text-decoration: none;
+        color: var(--color-text);
+      }
+      .slContainer {
+        display: flex;
+      }
+      @container (width <= 500px) {
+        .employeeTitle {
+          background-color: var(--color-ui-primary);
+          color: var(--color-on-ui-primary);
+          padding-inline: calc(var(--small-spacing) + 5px);
+          padding-block: var(--tiny-spacing);
+          border-radius: var(--medium-radius);
+          inline-size: fit-content;
+
+          position-anchor: --imgAnchor;
+          position: absolute;
+          position-area: center;
+          place-self: end;
+          margin: var(--tiny-spacing);
+        }
+      }
+
+      .description {
+        color: var(--color-text-muted);
+      }
+    }
+  }
+</style>

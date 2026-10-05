@@ -31,10 +31,30 @@
   --color-text-weak: var(--color-neutrals-400);
   --color-surface-highlight: var(--color-yellow-600);
   --color-on-ui-primary-muted: var(--color-neutrals-400);
+
+  /* ==== Spacing ==== */
+  --standard-spacing: 36px;
+  --tiny-spacing: 8px;
+  --small-spacing: 16px;
+  --large-spacing: 64px;
+
+  /* ==== Typography ==== */
+  --semibold: 700;
+  --p-line-height: 1.55;
+  --h-line-height: 1.2;
+
+  /*********Font Sizes**********/
+  --h1: 50px;
+  --h2: 45px;
+  --h3: 40px;
+  --h4: 35px;
+  --h5: 30px;
+  --title: 60px;
+  --p: 18px;
+
+  /* ==== Border Radii ==== */
+  --small-radius: 1.25rem;
+  --medium-radius: 5rem;
+  --large-radius: 10rem;
+  --infinite-radius: 9999rem;
 }
-
-/* ==== Spacing ==== */
-
-/* ==== Typography ==== */
-
-/* ==== Border Radii ==== */

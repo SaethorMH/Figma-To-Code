@@ -1,0 +1,19 @@
+---
+import CirclePercent from "./CirclePercent.astro";
+---
+
+<section>
+  <CirclePercent value="85" title="Consitancy" />
+  <CirclePercent value="95" title="Improvement" />
+  <CirclePercent value="90" title="Branching" />
+</section>
+
+<style>
+  section {
+    background-color: var(--color-action);
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 2rem;
+  }
+</style>

@@ -1,0 +1,95 @@
+---
+import { Image } from "astro:assets";
+import Services from "../Services.astro";
+import CEOImage from "@assets/images/ceo.webp";
+import LinkButton from "@components/Buttons/LinkButton.astro";
+---
+
+<section class="hero">
+  <div class="hero-content">
+    <h1><span>Empowerin</span>g Your Business Growth</h1>
+    <p>
+      Discover tailored strategies and expert insights to take your business to
+      the next level. Let us help you navigate challenges and achieve
+      sustainable success.
+    </p>
+    <LinkButton title="Book a Meeting" size="medium" link="#0" color="yellow" />
+    <LinkButton
+      title="Learn More"
+      size="medium"
+      link="#0"
+      color="black"
+      arrow="right"
+    />
+  </div>
+  <div class="bgContainer pattern">
+    <Image src={CEOImage} alt="CEO" />
+  </div>
+
+  <Services />
+</section>
+
+<style>
+  /* Styles her */
+  @layer components {
+    .hero {
+      /* padding: 2rem; */
+      grid-column: full-start / full-end;
+      display: grid;
+      grid-template-columns: subgrid;
+      grid-template-rows: auto 1fr 1fr;
+
+      .hero-content {
+        grid-row: 1/2;
+        grid-column: content-start / center;
+        z-index: 2;
+        margin-block: 8rem;
+        color: var(--color-neutrals-100);
+        max-width: 100%;
+        > * {
+          margin-block-start: var(--standard-spacing);
+        }
+        h1 {
+          font-weight: 900;
+          line-height: 1.1;
+          text-box: trim-both cap alphabetic;
+          span {
+            position: relative;
+            text-decoration: 0.5rem var(--color-action) underline;
+            &::before {
+              content: "";
+              position: absolute;
+              bottom: 1px;
+              right: 100%;
+              width: 100%;
+              height: 0.5rem;
+              background: linear-gradient(to right, #0000, var(--color-action));
+            }
+          }
+        }
+      }
+      .bgContainer {
+        grid-row: 1/3;
+        display: grid;
+        grid-column: full-start / full-end;
+        grid-template-columns: subgrid;
+      }
+      img {
+        /* grid-row: 1/3;
+        grid-column: center/ full-end;
+         width: 100%; 
+        max-height: 0;
+        min-height: 100%;
+        object-fit: contain;
+        justify-self: stretch;
+        object-view-box: inset(15% 15% 15% 25%); */
+
+        grid-column: center / full-end;
+        grid-row: 1 / 3;
+        place-self: stretch;
+        contain: size;
+        object-fit: cover;
+      }
+    }
+  }
+</style>

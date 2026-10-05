@@ -1,0 +1,165 @@
+---
+import ArrowRight from "@icons/arrow--right.svg";
+import ArrowLeft from "@icons/arrow-left.svg";
+const {
+  title,
+  link,
+  color,
+  arrow,
+  command,
+  commandfor,
+  name,
+  size = "small",
+} = Astro.props;
+
+const icons = {
+  left: ArrowLeft,
+  right: ArrowRight,
+};
+
+const Icon = icons[arrow];
+---
+
+{
+  link ? (
+    <a href={link} data-color={color} data-size={size}>
+      {title}
+      {Icon && <Icon />}
+    </a>
+  ) : ( name?
+  <button 
+  data-color={color}
+      data-size={size} 
+      popovertarget={name}> {name} </button>
+<div id={name} popover>
+  <slot />
+</div>
+:
+    <button
+      data-color={color}
+      data-size={size}
+      command={command}
+      commandfor={commandfor}
+    >
+      {title}
+      {Icon && <Icon />}
+    </button>
+  )
+}
+<style>
+  @layer Components {
+    a,
+    button {
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--tiny-spacing);
+      border-radius: var(--large-radius);
+      inline-size: fit-content;
+      block-size: fit-content;
+      border: none;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        scale: 1.05;
+        filter:sepia(2);
+      }
+      &:active{
+        scale:1.02;
+        filter:brightness(.7)
+      }
+    }
+    svg {
+      inline-size: 1em;
+      block-size: 1em;
+      flex-shrink: 0;
+    }
+    [data-color="black"] {
+      background: var(--color-ui-primary);
+      color: var(--color-on-ui-primary);
+      border: 1px var(--color-on-ui-primary) solid;
+    }
+    [data-color="white"] {
+      color: var(--color-ui-primary);
+      background: var(--color-on-ui-primary);
+    }
+    [data-color="yellow"] {
+      color: var(--color-ui-primary);
+      background: var(--color-action);
+    }
+    [data-size="small"] {
+      padding-block: var(--tiny-spacing);
+      padding-inline: var(--small-spacing);
+    }
+    [data-size="medium"] {
+      padding-block: var(--small-spacing);
+      padding-inline: var(--standard-spacing);
+    }
+    [data-size="large"] {
+      inline-size: 100%;
+      padding-block: var(--tiny-spacing);
+      padding-inline: var(--standard-spacing);
+      margin-top: var(--small-spacing);
+      font-size: 20px;
+    }
+
+
+
+    
+    [popover] {
+      opacity: 0;
+      transform: translateY(3rem);
+      /* position: absolute;
+      position-anchor: --anchor; */
+      position-area: bottom span-left;
+      background: var(--color-surface-secondary);
+      transition: 1s allow-discrete;
+      padding: var(--standard-spacing);
+      border-radius: var(--small-radius);
+      border: none;
+      max-width: 400px;
+      input[type="text"],
+      input[type="email"] {
+        border-radius: var(--large-radius);
+        border: 1px solid var(--color-neutrals-700);
+        font-size: var(--h5);
+      }
+    }
+    :global([popover]>*){
+      transition: 0.7s;
+      transition-delay: calc(sibling-index()*0.2s);
+      transition-timing-function: linear(0, 0.528 7%, 0.921 14.4%, 1.07 18.3%, 1.19 22.4%, 1.28 26.7%, 1.34 31.2%, 1.366 34.5%, 1.378 38%, 1.377 41.7%, 1.363 45.6%, 1.308 53.3%, 1.13 71.3%, 1.059 80.1%, 1.013 89.7%, 1);
+      transition-behavior: allow-discrete;
+      opacity: 1;
+      transform: translateY(1rem);
+    }
+
+    [popover]:popover-open {
+      opacity: 1;
+      transform: translateY(0rem);
+      
+    }
+    :global([popover]:popover-open>*){
+      opacity: 1;
+      transform: translateY(0rem);
+      }
+   
+    }
+    
+     @starting-style {
+      [popover]:popover-open {
+        opacity: 1;
+        transform: translateY(3rem);
+        transition-behavior: allow-discrete;
+      }
+      :global([popover]>*){
+      transition: 0.5s;
+      transition-delay: calc(sibling-index()*0.2s);
+      transition-timing-function: linear(0, 0.528 7%, 0.921 14.4%, 1.07 18.3%, 1.19 22.4%, 1.28 26.7%, 1.34 31.2%, 1.366 34.5%, 1.378 38%, 1.377 41.7%, 1.363 45.6%, 1.308 53.3%, 1.13 71.3%, 1.059 80.1%, 1.013 89.7%, 1);
+      transition-behavior: allow-discrete;
+      opacity: 0;
+      transform: translateY(1rem);
+    }
+  }
+</style>

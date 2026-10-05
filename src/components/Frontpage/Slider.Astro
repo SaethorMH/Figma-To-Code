@@ -1,0 +1,28 @@
+---
+import ValueCard from "@components/Cards/ValueCard.astro";
+import { getFin } from "@lib/api";
+const fin = await getFin();
+---
+
+<div class="flexer">
+  {
+    fin.values.map((value) => (
+      <ValueCard
+        title={value.title}
+        icon={value.icon}
+        text={value.description}
+        theme="muted"
+      />
+    ))
+  }
+</div>
+
+<style>
+  @layer components {
+    .flexer {
+      grid-column: full;
+      display: flex;
+      gap: var(--standard-spacing);
+    }
+  }
+</style>

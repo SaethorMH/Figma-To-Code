@@ -1,0 +1,86 @@
+---
+import { getFaq } from "@lib/api";
+
+const faq = await getFaq();
+---
+
+<section>
+  <p>FAQ</p>
+  <h4>Customer Questions</h4>
+  <div>
+    {
+      faq.map((q) => (
+        <details>
+          <summary>{q.question}</summary>
+          <div>
+            <p>{q.answer}</p>
+          </div>
+        </details>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  section {
+    padding: var(--large-spacing);
+    background: var(--color-neutrals-100);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--small-spacing);
+  }
+  details {
+    width: 40rem;
+  }
+  summary {
+    position: relative;
+    anchor-name: --question;
+    border-bottom: 1px var(--color-ui-primary) solid;
+    font-size: 20px;
+    padding-block: var(--small-spacing);
+    &::marker {
+      content: "";
+    }
+    &::before,
+    &::after {
+      content: "";
+      border-block-start: 3px solid var(--color-ui-primary);
+      height: 0;
+      width: 1rem;
+      inset-block-start: 50%;
+      inset-inline-end: 0;
+      position: absolute;
+      position-anchor: --question;
+      position-area: top end;
+    }
+    &::after {
+      transform: rotate(90deg);
+      transform-origin: 50%;
+    }
+  }
+  details[open] summary::after {
+    transform: rotate(0deg);
+  }
+
+  @supports (interpolate-size: allow-keywords) {
+    @media (prefers-reduced-motion: no-preference) {
+      details {
+        interpolate-size: allow-keywords;
+      }
+
+      details::details-content {
+        block-size: 0;
+        overflow: clip;
+        transition:
+          block-size 0.3s ease,
+          content-visibility 0.3s;
+        transition-behavior: allow-discrete;
+      }
+
+      details:open::details-content {
+        block-size: auto;
+      }
+    }
+  }
+</style>

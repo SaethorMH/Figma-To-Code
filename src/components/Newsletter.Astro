@@ -1,0 +1,55 @@
+---
+import LinkButton from "./Buttons/LinkButton.astro";
+---
+
+<div class="newsletterContainer">
+  <p><span>STAY UPDATED</span></p>
+  <h3>Subscribe To Our Newsletter</h3>
+  <p>Build stronger Customer Relationships with<span>Consultalk</span></p>
+  <div>
+    <input
+      type="email"
+      name="email"
+      id="email"
+      placeholder="your email adress"
+    />
+    <LinkButton title="Subscribe" size="medium" color="yellow" />
+  </div>
+</div>
+
+<style>
+  @layer components {
+    .newsletterContainer {
+      padding: var(--large-spacing);
+      display: grid;
+      gap: var(--small-spacing);
+      grid-template-columns: subgrid;
+      grid-column: full-start / full-end;
+      place-items: center;
+      background: var(--color-neutrals-900);
+      color: var(--color-text-muted);
+      > :not(:is(div)) {
+        grid-column: content-start / content-end;
+      }
+      span {
+        color: var(--color-action);
+      }
+
+      h3 {
+        color: var(--color-on-ui-primary);
+      }
+      div {
+        place-self: center;
+        grid-column: narrow;
+        width: 80%;
+      }
+    }
+    input {
+      padding-block: var(--small-spacing);
+      inline-size: 70%;
+
+      border-radius: var(--medium-radius);
+      border-style: solid;
+    }
+  }
+</style>

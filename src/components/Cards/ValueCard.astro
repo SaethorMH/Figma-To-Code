@@ -1,0 +1,129 @@
+---
+import ArrowRight from "@icons/arrow--right.svg";
+import ArrowLeft from "@icons/arrow-left.svg";
+import Bars from "@icons/bars.svg";
+import Cal from "@icons/cal.svg";
+import Card from "@icons/card.svg";
+import Checkmark from "@icons/checkmark.svg";
+import Clock from "@icons/clock.svg";
+import Gear from "@icons/gear.svg";
+import Globe from "@icons/globe.svg";
+import Law from "@icons/law.svg";
+import Layers from "@icons/layers.svg";
+import Money from "@icons/money.svg";
+import Phone from "@icons/phone.svg";
+import Pin from "@icons/pin.svg";
+
+const { title, text, icon, link = false, theme = "light" } = Astro.props;
+const icons = {
+  gear: Gear,
+  globe: Globe,
+  layers: Layers,
+  bars: Bars,
+  cal: Cal,
+  card: Card,
+  checkmark: Checkmark,
+  clock: Clock,
+  law: Law,
+  money: Money,
+  phone: Phone,
+  pin: Pin,
+};
+const Icon = icons[icon];
+---
+
+<div class="card" data-theme={theme}>
+  {
+    link == true ? (
+      <div class="iconContainer">{Icon && <Icon />}</div>
+    ) : (
+      <div class="iconContainer2">{Icon && <Icon />}</div>
+    )
+  }
+  <!-- <div class="iconContainer">
+    {Icon && <Icon />}
+  </div> -->
+
+  <p>
+    {title}
+  </p>
+  <p>
+    {text}
+  </p>
+  {
+    link == true ? (
+      <a href="#">
+        Read More <ArrowRight />
+      </a>
+    ) : (
+      ""
+    )
+  }
+</div>
+
+<style>
+  @layer components {
+    .card {
+      flex: 1 0 50%;
+      height: fit-content;
+      display: flex;
+      flex-direction: column;
+      padding: var(--standard-spacing);
+      color: var(--color-ui-primary);
+      border-radius: var(--small-radius);
+      > * + * {
+        margin-block-start: var(--small-spacing);
+      }
+    }
+    .iconContainer {
+      width: var(--large-spacing);
+      height: var(--large-spacing);
+      border-radius: var(--infinite-radius);
+      background: var(--color-ui-primary);
+      color: var(--color-on-ui-primary);
+      > * {
+        width: 100%;
+        padding: var(--small-spacing);
+      }
+    }
+    .iconContainer + p {
+      color: var(--color-text);
+      font-weight: 600;
+    }
+
+    p {
+      color: var(--color-text-muted);
+    }
+    a {
+      display: inline;
+      text-decoration: none;
+      color: var(--color-ui-primary);
+      > * {
+        display: inline;
+        height: calc(1lh / 1.7);
+      }
+    }
+    .iconContainer2 {
+      width: var(--large-spacing);
+      height: var(--large-spacing);
+      border-radius: var(--infinite-radius);
+
+      color: var(--color-ui-primary);
+      > * {
+        width: 100%;
+        padding: var(--small-spacing);
+      }
+    }
+    .iconContainer2 + p {
+      color: var(--color-text);
+      font-weight: 600;
+    }
+    .card[data-theme="light"] {
+      background: var(--color-on-ui-primary);
+    }
+    .card[data-theme="muted"] {
+      background: var(--color-neutrals-200);
+      inline-size: 25ch;
+    }
+  }
+</style>

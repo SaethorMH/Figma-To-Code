@@ -1,7 +1,48 @@
 ---
 import Layout from "@layouts/Layout.astro";
+import { Image } from "astro:assets";
+import { getTeamMembers } from "@lib/api";
+import MemberCard from "@components/Cards/MemberCard.astro";
+import SubpageTitle from "@components/Tiny Components/SubpageTitle.astro";
+const team = await getTeamMembers();
 ---
 
-<Layout>
-  <h1>Her skal TEAM-siden være</h1>
+<Layout title="Team - AskExperts" currSite="Team">
+  <!-- <p>TEAM</p>
+  <h1>The Consultors</h1>
+  <p>
+    Our success stems from the synergy between dedicated teams and our valued
+    clients. We prioritize a company culture that fosters exceptional
+    productivity, ensures customer satisfaction.
+  </p> -->
+  <SubpageTitle
+    eyebrow="TEAM"
+    title="The Consultors"
+    text="Our success stems from the synergy between dedicated teams and our valued
+    clients. We prioritize a company culture that fosters exceptional
+    productivity, ensures customer satisfaction."
+    direction="left"
+  />
+  <div class="teamWrapper">
+    <h2>Meet Our Great Team</h2>
+    <p>
+      Welcome to our amazing team! We are a group of passionate individuals
+      dedicated to excellence and innovation. Each member brings unique skills
+      and experiences, working together to achieve our goals. Join us as we
+      embark on exciting projects and create lasting impacts.
+    </p>
+    <div class="team">
+      {team.map((member) => <MemberCard employee={member} />)}
+    </div>
+  </div>
 </Layout>
+<style>
+  .teamWrapper {
+    container: card / inline-size;
+  }
+  .team {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    gap: var(--standard-spacing);
+  }
+</style>

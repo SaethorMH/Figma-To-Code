@@ -1,0 +1,37 @@
+---
+import Logo from "./Tiny Components/Logo.astro";
+import Newsletter from "@components/Newsletter.astro";
+---
+
+<Newsletter />
+
+<footer>
+  <div class="footerFlex">
+    <Logo />
+    <p>©2026 Consultalk. All rights reserved</p>
+    <p>Terms of Service | Privacy Policy</p>
+  </div>
+</footer>
+
+<style>
+  @layer components {
+    footer {
+      display: grid;
+      grid-template-columns: subgrid;
+      color: var(--color-text-muted);
+      grid-column: full-start / full-end;
+      background: black;
+      Logo {
+        color: white;
+      }
+      > * {
+        grid-column: content-start / content-end;
+      }
+    }
+    .footerFlex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+</style>

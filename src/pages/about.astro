@@ -1,10 +1,65 @@
 ---
 import Layout from "@layouts/Layout.astro";
+import SubpageTitle from "@components/Tiny Components/SubpageTitle.astro";
+import Section from "@components/Frontpage/Section.astro";
+import Checkmark from "@icons/checkmark.svg";
+import NumberPlusTitle from "@components/Tiny Components/NumberPlusTitle.astro";
+import ValuesSection from "@components/Frontpage/ValuesSection.astro";
+import LinkButton from "@components/Buttons/LinkButton.astro";
+import MemberCard from "@components/Cards/MemberCard.astro";
+import { getTeamMembers } from "@lib/api";
+const team = await getTeamMembers();
+import FAQ from "@components/About/FAQ.astro";
 ---
 
-<Layout>
-  <main>
-    <h1>About us</h1>
-    <!-- Byg sidens sektioner her med udgangspunkt i Figma-designet. -->
-  </main>
+<Layout title="About - AskExperts" currSite="About">
+  <SubpageTitle
+    title="Igniting Innovation"
+    direction="right"
+    eyebrow="About"
+    text="Our strength lies in the collaboration between our talented teams and esteemed clients. We cultivate a workplace that champions innovation, promotes peak performance, and guarantees client satisfaction."
+  />
+  <Section
+    title="Turn your ideas into reality."
+    subtitle="OUR VISION"
+    text="Capitalize on low hanging fruit to identify a ballpark value added activity beta test. Override the digital divide with additional from DevOps."
+  >
+    <Checkmark class:list={"green inline"} />
+    <p class="inline">
+      Bring to the table win-win survival strategies to ensure proactive
+      domination. At the end of the day.
+    </p>
+    <br />
+    <Checkmark class:list={"green inline"} />
+    <p class="inline">
+      Capitalize on low hanging fruit to identify a ballpark value added
+      activity to beta test override the digital.
+    </p>
+    <div class="flexer">
+      <NumberPlusTitle number="1128" title="Successful Works" />
+      <NumberPlusTitle number="908" title="Team Members" />
+      <NumberPlusTitle number="258" title="Happy Customers" />
+      <NumberPlusTitle number="564" title="Creative Ideas" />
+    </div>
+  </Section>
+  <ValuesSection theme="light" />
+
+  <Section
+    title="We champion the bold"
+    subtitle="OUR TEAM"
+    text="Our success stems from the synergy between dedicated teams and our valued clients. We prioritize a company culture that fosters exceptional productivity, ensures customer satisfaction."
+  >
+    <LinkButton title="Meet the Team" color="black" size="medium" />
+    <div>
+      <MemberCard employee={team[0]} />
+      <MemberCard employee={team[1]} />
+    </div>
+  </Section>
+  <FAQ />
 </Layout>
+<style>
+  .flexer {
+    display: flex;
+    justify-content: space-around;
+  }
+</style>
