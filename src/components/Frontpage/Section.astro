@@ -1,26 +1,70 @@
 ---
-const { title, text, subtitle, theme } = Astro.props;
+const {
+  title,
+  text,
+  subtitle,
+  theme,
+  gridCol = "subgrid",
+  gridRow = "1fr",
+  titleSide = "start", // "start" || "end"
+} = Astro.props;
+
+const titleCol =
+  titleSide === "end" ? "center / content-end" : "content-start / center";
+const contentCol =
+  titleSide === "end" ? "content-start / center" : "center / content-end";
 ---
 
 <section data-theme={theme}>
-  <div class="titleContainer">
-    <subtitle>{subtitle}</subtitle>
-    <h2>{title}</h2>
-    <p>{text}</p>
-  </div>
+  <div
+    class="grid"
+    style={{
+      "--gridCol": gridCol,
+      "--gridRow": gridRow,
+      "--titleCol": titleCol,
+      "--contentCol": contentCol,
+    }}
+  >
+    <div class="titleContainer">
+      <p class="subtitle">{subtitle}</p>
+      <h2>{title}</h2>
+      <p>{text}</p>
+    </div>
 
-  <slot />
+    <slot />
+  </div>
 </section>
 
 <style>
-  @layer component {
+  @layer components {
+    section {
+      grid-column: full-start / full-end;
+      display: grid;
+      grid-template-columns: subgrid;
+      min-block-size: 40vh;
+      padding: var(--large-spacing);
+      overflow: clip;
+    }
+    section > :global(*) {
+      grid-column: content-start / content-end;
+    }
     .titleContainer {
       display: flex;
       flex-direction: column;
-      max-width: 65ch;
-      subtitle {
-        font-size: 10px;
+      max-width: 35rem;
+
+      .subtitle {
+        font-size: 0.75rem;
         font-weight: 700;
+      }
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: var(--gridCol);
+      grid-template-rows: var(--gridRow);
+      .titleContainer {
+        grid-column: var(--titleCol);
+        grid-row: 1/2;
       }
     }
 
@@ -28,8 +72,31 @@ const { title, text, subtitle, theme } = Astro.props;
       background: var(--color-surface-primary);
     }
     [data-theme="dark"] {
-      background: var(--color-ui-primary);
+      /* background: var(--color-ui-primary); */
       color: var(--color-on-ui-primary);
+    }
+    [data-theme="dark"] {
+      --pattern-color: var(--color-action);
+
+      background:
+        radial-gradient(
+          ellipse farthest-side at 50% 70%,
+          #0000,
+          var(--color-ui-primary)
+        ),
+        conic-gradient(
+            from 180deg at 1px 1px,
+            alpha(from var(--pattern-color) / 0.5) 75%,
+            #0000 0
+          ) -1px -1px /
+          40px 40px,
+        var(--color-ui-primary);
+    }
+    [data-theme="muted"] {
+      background: var(--color-surface-secondary);
+    }
+    [data-theme="action"] {
+      background: var(--color-action);
     }
   }
 </style>

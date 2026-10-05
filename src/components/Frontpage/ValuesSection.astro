@@ -1,0 +1,40 @@
+---
+import { getValues } from "@lib/api";
+import Section from "./Section.astro";
+import LinkButton from "@components/Buttons/LinkButton.astro";
+import ValueCard from "@components/Cards/ValueCard.astro";
+
+const values = await getValues();
+
+const { theme = "dark" } = Astro.props;
+
+const btnCol = { dark: "white", light: "black" };
+---
+
+<Section
+  title={values.title}
+  subtitle={values.eyebrow}
+  text={values.subtitle}
+  theme={theme}
+>
+  <LinkButton color={btnCol[theme]} title={values.button.text} size="medium" />
+  <div class="valueFlex">
+    {
+      values.values.map((value) => (
+        <ValueCard
+          title={value.title}
+          icon={value.icon}
+          text={value.description}
+          link="1"
+        />
+      ))
+    }
+  </div>
+</Section>
+
+<style>
+  .valueFlex {
+    display: flex;
+    gap: var(--standard-spacing);
+  }
+</style>

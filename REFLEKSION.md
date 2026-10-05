@@ -1,6 +1,6 @@
 # Refleksion – Figma til kode
 
-**Gruppemedlemmer:** Skriv begge navne her.
+**Gruppemedlemmer:** Sæþór Máni Hjálmarsson
 
 ## Sådan bruger I filen
 
@@ -35,6 +35,19 @@ export function getServices() {
 I komponenten kalder vi `getServices()`. Vi kontrollerede, at de samme servicetitler blev vist før og efter ændringen. Næste skridt er at undersøge, hvad der sker, hvis API'et returnerer en fejl.
 
 Reference: [Datahentning i Astro](https://docs.astro.build/en/guides/data-fetching/).
+
+---
+
+## Første "forhindring"
+
+### Content bredde så forkert ud
+
+Jeg havde svært ved at få skabelonen og min egen side til at se ens ud, det var som om at 75 rem ikke var det samme i figma som det var på min pc, troede først at det var min skærms størrelse da min skærm er 2560x1600 px, men lige meget hvordan jeg justerede så det ikke rigtigt ud.
+
+### Løsning
+
+Jeg endte med at åbne siden i Firefox for at se om en anden feature var kompatable og i det jeg gør det overraskes jeg af den korrekte body bredde, siden åbner jeg den i Chrome og der ser det hele perfekt ud. Jeg har længe brugt Brave som min standard browser da jeg troede at den var nærmest én-til-én med Chrome (Brave kører på Chromium modellen), men det gør den åbenbart ikke.
+Stadig ikke sikker på om det er fordi jeg har ændret indstillinger i browseren men fra nu af tester jeg min egen side i chrome.
 
 ---
 

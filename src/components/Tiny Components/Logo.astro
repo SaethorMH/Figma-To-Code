@@ -5,7 +5,18 @@
 <logo>Ask<span>Experts</span></logo>
 
 <style>
+  logo {
+    font-size: var(--h5);
+    &:hover {
+      cursor: pointer;
+    }
+  }
   span {
     color: var(--color-action);
   }
 </style>
+<script>
+  document
+    .querySelector("logo")
+    ?.addEventListener("click", () => (location = "/"));
+</script>

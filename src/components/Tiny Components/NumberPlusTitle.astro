@@ -1,0 +1,17 @@
+---
+const { number, title } = Astro.props;
+---
+
+<div>
+  <h2>{number}+</h2>
+  <p>{title}</p>
+</div>
+
+<style>
+  div {
+    text-align: center;
+  }
+  h2 {
+    font-weight: 800;
+  }
+</style>

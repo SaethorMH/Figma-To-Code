@@ -3,7 +3,7 @@
 import { getTeamMembers } from "@lib/api";
 import { Image } from "astro:assets";
 import Layout from "@layouts/Layout.astro";
-
+import LinkButton from "@components/Buttons/LinkButton.astro";
 export async function getStaticPaths() {
   const team = await getTeamMembers();
 
@@ -16,15 +16,47 @@ export async function getStaticPaths() {
 const { employee } = Astro.props;
 ---
 
-<Layout>
-  <Image
-    src={employee.image.src}
-    alt={employee.image.alt}
-    width={employee.image.width}
-    height={employee.image.height}
-  />
-  <h2>{employee.name}</h2>
-  <p>{employee.description_long}</p>
-  <h3>Past Experience</h3>
-  <p>{employee.past_experience}</p>
+<Layout title={employee + " - AskExperts"} currSite="Team">
+  <LinkButton link="./" size="medium" color="black" title="Back to team" />
+  <div class="grid">
+    <Image
+      style={`view-transition-name: img-${employee.slug}`}
+      src={employee.image.src}
+      alt={employee.image.alt}
+      width={employee.image.width}
+      height={employee.image.height}
+    />
+    <div>
+      <h2>{employee.name}</h2>
+      <p>{employee.description_long}</p>
+    </div>
+    <div>
+      <h3>Past Experience</h3>
+      <p>{employee.past_experience}</p>
+    </div>
+  </div>
 </Layout>
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    grid-template-rows: 1fr 1fr;
+    gap: var(--standard-spacing);
+    img {
+      grid-row: 1 / -1;
+      position: relative;
+      border-radius: var(--small-radius);
+      &::before {
+        content: "";
+        height: 165px;
+        width: 235px;
+        background: var(--color-green-400);
+        position: absolute;
+      }
+    }
+    div {
+      grid-column: 2/3;
+      grid-row: span 1;
+    }
+  }
+</style>

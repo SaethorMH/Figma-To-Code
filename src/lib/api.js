@@ -14,3 +14,14 @@ export function getCaseStudies() {
 export function getTeamMembers() {
   return apiFetch("https://ftk-api.pages.dev/team");
 }
+
+export function getValues() {
+  return apiFetch("https://ftk-api.pages.dev/core-values");
+}
+
+export function getFaq() {
+  return apiFetch("https://ftk-api.pages.dev/faq");
+}
+export function getFin() {
+  return apiFetch("https://ftk-api.pages.dev/financial-projections");
+}

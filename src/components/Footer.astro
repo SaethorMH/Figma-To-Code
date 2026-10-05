@@ -1,9 +1,16 @@
 ---
-
+import Logo from "./Tiny Components/Logo.astro";
+import Newsletter from "@components/Newsletter.astro";
 ---
 
+<Newsletter />
+
 <footer>
-  <h1>HER ER DER EN FOOTER</h1>
+  <div class="footerFlex">
+    <Logo />
+    <p>©2026 Consultalk. All rights reserved</p>
+    <p>Terms of Service | Privacy Policy</p>
+  </div>
 </footer>
 
 <style>
@@ -11,15 +18,20 @@
     footer {
       display: grid;
       grid-template-columns: subgrid;
-      color: white;
-      grid-column: full;
-      background-color: black;
-      height: 20px;
-      place-self: end;
-
-      > * {
-        grid-area: content;
+      color: var(--color-text-muted);
+      grid-column: full-start / full-end;
+      background: black;
+      Logo {
+        color: white;
       }
+      > * {
+        grid-column: content-start / content-end;
+      }
+    }
+    .footerFlex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
   }
 </style>

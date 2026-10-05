@@ -1,67 +1,130 @@
 ---
 import PopoverBtn from "./Buttons/PopoverBtn.astro";
+import LinkButton from "./Buttons/LinkButton.astro";
 import Logo from "./Tiny Components/Logo.astro";
+
+const { currSite = "Home" } = Astro.props;
+
+const links = [
+  { label: "Home", href: "/" },
+  { label: "Case Studies", href: "/case-studies" },
+  { label: "Team", href: "/team" },
+  { label: "About", href: "/about" },
+];
 ---
 
 <header>
-  <div class="headerContainer">
+  <div class="headerContainer" data-currSite={currSite}>
     <Logo />
     <nav>
       <ul>
-        <li>Home</li>
-        <li>Case Studies</li>
-        <li>Team</li>
-        <li>About</li>
+        {
+          links.map(({ label, href }) => (
+            <li class:list={{ active: label === currSite }}>
+              <a href={href}>{label}</a>
+            </li>
+          ))
+        }
       </ul>
     </nav>
 
     <burger>
-      <button popovertarget="menu">Menu</button>
-      <div popover id="menu">
-        <ul>
-          <li>Home</li>
-          <li>Case Studies</li>
-          <li>Team</li>
-          <li>About</li>
+      <LinkButton name="Menu" size="small" color="white">
+        <ul class="burgerMenuList">
+          {
+            links.map(({ label, href }) => (
+              <li class:list={{ active: label === currSite }}>
+                <a href={href}>{label}</a>
+              </li>
+            ))
+          }
         </ul>
-      </div>
+      </LinkButton>
+      <!-- <button popovertarget="menu">Menu</button>
+      <div popover id="menu">
+        {
+          links.map(({ label, href }) => (
+            <li class:list={{ active: label === currSite }}>
+              <a href={href}>{label}</a>
+            </li>
+          ))
+        }
+      </div> -->
     </burger>
-    <PopoverBtn name="login">
-      <h2>Login Here!</h2>
-      <p>username</p>
-      <input type="text" />
+    <!-- <PopoverBtn name="Login">
+      <h2>Dashboard Login</h2>
+      <p>Email adress</p>
+      <input type="email" />
       <p>password</p>
       <input type="text" />
-    </PopoverBtn>
+      <input type="submit" value="" />
+    </PopoverBtn> -->
+    <LinkButton name="Login" color="white" size="small">
+      <h2>Dashboard Login</h2>
+      <p>Email adress</p>
+      <input type="email" />
+      <p>Password</p>
+      <input type="text" />
+      <LinkButton title="Go to Dashboard" size="large" color="yellow" />
+    </LinkButton>
   </div>
 </header>
 
 <style>
   @layer components {
     header {
+      position: sticky;
+      inset: 0 0 auto;
+      transition: translate 1s;
+      translate: 0 0;
+
+      @container scroll-state(scrolled: bottom) {
+        translate: 0 -100%;
+      }
+
       grid-column: full;
       display: grid;
-
+      padding: var(--small-spacing);
       grid-template-columns: subgrid;
       background-color: var(--color-ui-primary);
       color: var(--color-on-ui-primary);
-      max-height: 2rem;
-      z-index: 2;
-      > * {
-        grid-area: content;
-      }
+      z-index: 999;
     }
     .headerContainer {
+      grid-column: content;
       container: header / inline-size;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+
+      place-items: center;
       ul {
         display: flex;
         list-style: none;
         li {
-          font-size: 0.2rem;
-          margin-inline: 0.4rem;
+          margin-inline: var(--small-spacing);
+        }
+        a {
+          color: var(--color-on-ui-primary);
+          text-decoration: none;
+        }
+        .active a {
+          text-decoration: underline var(--color-action) 2px;
+        }
+      }
+      .burgerMenuList {
+        flex-direction: column;
+
+        li {
+          margin-inline: 0;
+          margin-top: var(--standard-spacing);
+        }
+        a {
+          color: var(--color-ui-primary);
+          font-size: 20px;
+          padding: var(--small-spacing);
+          background-color: var(--color-neutrals-200);
+          border-radius: var(--small-radius);
         }
       }
     }

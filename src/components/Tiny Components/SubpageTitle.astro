@@ -1,0 +1,59 @@
+---
+const { eyebrow, title, text, direction = "right", theme } = Astro.props;
+---
+
+<div data-theme={theme}>
+  <p>{eyebrow}</p>
+  <h1 data-direction={direction}>{title}</h1>
+  <p>{text}</p>
+</div>
+
+<style>
+  div {
+    grid-column: full;
+    background: var(--color-neutrals-200);
+    > * {
+      place-self: center;
+      max-width: 45ch;
+    }
+    padding-block: calc(var(--large-spacing) * 2);
+    text-align: center;
+    overflow-x: clip;
+    p {
+    }
+    h1 {
+      --underline: 6px;
+      anchor-name: --title;
+      position: relative;
+      justify-self: center;
+
+      width: fit-content;
+      justify-self: center;
+      text-decoration: underline var(--color-action) var(--underline);
+      text-underline-offset: 3px;
+      text-box: cap alphabetic;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 100%;
+        margin-top: 3px; /* same as text-underline-offset */
+        width: 100vw;
+        height: var(--underline);
+        background: var(--color-action);
+        view-transition-name: line;
+      }
+
+      &[data-direction="right"]::before {
+        left: 100%;
+      }
+      &[data-direction="left"]::before {
+        right: 100%;
+      }
+    }
+    p:last-child {
+      color: var(--color-text-muted);
+      margin-top: var(--standard-spacing);
+    }
+  }
+</style>
