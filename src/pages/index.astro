@@ -4,6 +4,9 @@ import Hero from "@components/Frontpage/Hero.astro";
 import CircleSection from "@components/Frontpage/CircleSection.astro";
 import Section from "@components/Frontpage/Section.astro";
 import WTEImage from "@assets/images/WTEImage.png";
+import Photo1 from "@assets/images/3imageGrid/Photo.png";
+import Photo2 from "@assets/images/3imageGrid/Photo-1.png";
+import Photo3 from "@assets/images/3imageGrid/Photo-2.png";
 import Checkmark from "@icons/checkmark.svg";
 import LinkButton from "@components/Buttons/LinkButton.astro";
 import { Image } from "astro:assets";
@@ -67,5 +70,36 @@ import Slider from "@components/Frontpage/Slider.astro";
     theme="light"
   >
     <p>********3 ContactOptions*/</p>
+
+    <div class="grid2_1">
+      <Image
+        src={Photo1}
+        alt="Lady"
+        height="506"
+        width="316"
+        style="border-radius:var(--small-radius); grid-row: span 2 ;"
+      /><Image
+        src={Photo2}
+        alt="Ladies 1"
+        height="243"
+        width="316"
+        style="border-radius:var(--small-radius); "
+      /><Image
+        src={Photo3}
+        alt="Ladies 2"
+        height="243"
+        width="316"
+        style="border-radius:var(--small-radius); "
+      />
+    </div>
   </Section>
 </Layout>
+<style>
+  .grid2_1 {
+    width: 50%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: var(--small-spacing);
+  }
+</style>

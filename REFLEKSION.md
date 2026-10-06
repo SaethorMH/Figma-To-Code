@@ -2,42 +2,6 @@
 
 **Gruppemedlemmer:** Sæþór Máni Hjálmarsson
 
-## Sådan bruger I filen
-
-Skriv jeres fælles refleksion direkte i denne fil. Erstat hjælpeteksterne med jeres egne erfaringer, og slet Markdown-guiden og demoen inden aflevering. Skriv kort og konkret, og brug eksempler fra jeres egen kode.
-
-Åbn forhåndsvisningen i VS Code med **Cmd + Shift + V** (Mac) eller **Ctrl + Shift + V** (Windows). Så ser I, hvordan Markdown bliver vist. På GitHub vises formateringen automatisk, når I åbner filen.
-
-### Mini-guide til Markdown
-
-- `# Titel` er dokumentets hovedoverskrift. Brug kun én.
-- `## Afsnit` og `### Underafsnit` giver overskrifter i flere niveauer.
-- `**vigtig tekst**` bliver til **vigtig tekst**.
-- En bindestreg efterfulgt af et mellemrum laver en punktopstilling som denne.
-- Skriv kode inde i en sætning mellem enkelte backticks, fx `getTeamMembers()`.
-- Links skrives sådan: `[Astros dokumentation](https://docs.astro.build/)`.
-- Lav et nyt afsnit med en tom linje. Brug også en tom linje før og efter lister og kodeblokke.
-
-En kodeblok starter og slutter med tre backticks. Skriv sproget efter de første, fx `js`, `css`, `html` eller `astro`. Se et eksempel i filens kildekode nedenfor.
-
-### Kort demo – sådan kan tekst, kode og link kombineres
-
-> Dette er et opdigtet eksempel på formen, ikke en færdig refleksion eller et ekstra krav.
-
-Vi flyttede datahentningen til en fælles funktion, så endpointet kun skal vedligeholdes ét sted.
-
-```js
-export function getServices() {
-  return apiFetch("https://ftk-api.pages.dev/services");
-}
-```
-
-I komponenten kalder vi `getServices()`. Vi kontrollerede, at de samme servicetitler blev vist før og efter ændringen. Næste skridt er at undersøge, hvad der sker, hvis API'et returnerer en fejl.
-
-Reference: [Datahentning i Astro](https://docs.astro.build/en/guides/data-fetching/).
-
----
-
 ## Første "forhindring"
 
 ### Content bredde så forkert ud
