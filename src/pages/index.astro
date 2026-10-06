@@ -8,6 +8,9 @@ import Photo1 from "@assets/images/3imageGrid/Photo.png";
 import Photo2 from "@assets/images/3imageGrid/Photo-1.png";
 import Photo3 from "@assets/images/3imageGrid/Photo-2.png";
 import Checkmark from "@icons/checkmark.svg";
+import Phone from "@icons/phone.svg";
+import Clock from "@icons/clock.svg";
+import Pin from "@icons/pin.svg";
 import LinkButton from "@components/Buttons/LinkButton.astro";
 import { Image } from "astro:assets";
 import ValuesSection from "@components/Frontpage/ValuesSection.astro";
@@ -24,14 +27,11 @@ import Slider from "@components/Frontpage/Slider.astro";
     theme="light"
     titleSide="end"
   >
-    <Image
-      src={WTEImage}
-      alt="What to Expect"
-      height="395"
-      width="634"
-      style="border-radius:var(--small-radius); grid-row: span 2 ;"
-    />
-    <div style="grid-column:2/3; ">
+    <div class="wteImage">
+      <Image src={WTEImage} alt="What to Expect" height="395" width="634" />
+    </div>
+
+    <div class="checklist">
       <Checkmark class:list={"green inline"} />
       <p>
         Collaborate to build actionable strategies that drive sustainable growth
@@ -49,7 +49,7 @@ import Slider from "@components/Frontpage/Slider.astro";
     text="Financial projections are essential for planning and monitoring a company’s performance. They provide insights into potential revenue, expenses, and profitability over specific periods."
     theme="muted"
   >
-    <Slider />
+    <div class="fullRow"><Slider /></div>
   </Section>
 
   <!--  -->
@@ -65,11 +65,33 @@ import Slider from "@components/Frontpage/Slider.astro";
   <ValuesSection />
   <Section
     title="Contact Us. It's Easy."
-    subtitle="Process"
+    subtitle="PROCESS"
     text="Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative."
     theme="light"
   >
-    <p>********3 ContactOptions*/</p>
+    <div class="contactContainer">
+      <div>
+        <div class="iconContact" style="background:#ffd0004c">
+          <Phone color="var(--color-yellow-500)" />
+        </div>
+        <p class="contactType">Call Today</p>
+        <p class="contactInfo">+1 800 100 900</p>
+      </div>
+      <div>
+        <div class="iconContact" style="background:var(--color-green-400)">
+          <Clock color="var(--color-green-600)" />
+        </div>
+        <p class="contactType">Monday to Friday</p>
+        <p class="contactInfo">9AM - 5PM</p>
+      </div>
+      <div>
+        <div class="iconContact" style="background:var(--color-neutrals-200)">
+          <Pin />
+        </div>
+        <p class="contactType">USA Office</p>
+        <p class="contactInfo">195 Devonshire St Boston, MA 02110</p>
+      </div>
+    </div>
 
     <div class="grid2_1">
       <Image
@@ -95,11 +117,90 @@ import Slider from "@components/Frontpage/Slider.astro";
   </Section>
 </Layout>
 <style>
+  .wteImage {
+    position: relative;
+    isolation: isolate;
+    grid-row: 1 / span 2;
+    &::before {
+      content: "";
+      height: 164px;
+      width: 183px;
+      position: absolute;
+      left: calc(var(--large-spacing) * -1);
+      top: calc(var(--standard-spacing) * -1);
+      background: var(--color-green-400);
+      border-radius: 0.75rem;
+      border: 1px solid #ededed;
+      z-index: -1;
+    }
+    > :global(img) {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: var(--small-radius);
+    }
+  }
+  .checklist {
+    grid-column: center / content-end;
+  }
+  .fullRow {
+    grid-column: content-start / content-end;
+    grid-row: 2;
+  }
+
   .grid2_1 {
-    width: 50%;
+    width: 90%;
+    grid-column: center / content-end;
+    grid-row: 1 / span 2;
     display: grid;
+    position: relative;
+    isolation: isolate;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     gap: var(--small-spacing);
+    &::before {
+      content: "";
+      height: 164px;
+      width: 307px;
+      position: absolute;
+      left: calc(var(--large-spacing) * -1);
+      bottom: calc(var(--standard-spacing) * -1);
+      background: var(--color-green-400);
+      border-radius: 0.75rem;
+      border: 1px solid #ededed;
+      z-index: -1;
+    }
+  }
+  .contactContainer {
+    grid-column: content-start / center;
+    grid-row: 2;
+    display: flex;
+    gap: var(--small-spacing);
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+  .contactContainer > * {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--tiny-spacing);
+    .contactType {
+      color: var(--color-text-muted);
+    }
+    .contactInfo {
+      font-size: 20px;
+      font-weight: 700;
+    }
+  }
+  .iconContact {
+    width: fit-content;
+    grid-row: 1/3;
+    place-self: center;
+    padding: calc(var(--small-spacing));
+    border-radius: var(--infinite-radius);
+    > * {
+      aspect-ratio: 1/1;
+      height: var(--standard-spacing);
+      width: var(--standard-spacing);
+    }
   }
 </style>

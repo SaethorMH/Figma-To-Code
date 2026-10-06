@@ -17,7 +17,13 @@ const btnCol = { dark: "white", light: "black" };
   text={values.subtitle}
   theme={theme}
 >
-  <LinkButton color={btnCol[theme]} title={values.button.text} size="medium" />
+  <div class="btnContainer">
+    <LinkButton
+      color={btnCol[theme]}
+      title={values.button.text}
+      size="medium"
+    />
+  </div>
   <div class="valueFlex">
     {
       values.values.map((value) => (
@@ -33,8 +39,14 @@ const btnCol = { dark: "white", light: "black" };
 </Section>
 
 <style>
+  .btnContainer {
+    place-self: end;
+    padding: var(--small-spacing);
+  }
   .valueFlex {
     display: flex;
     gap: var(--standard-spacing);
+    grid-column: content-start / content-end;
+    grid-row: 2;
   }
 </style>

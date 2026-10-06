@@ -6,13 +6,26 @@ const {
   theme,
   gridCol = "subgrid",
   gridRow = "1fr",
-  titleSide = "start", // "start" || "end"
+  titleSide = "start",
 } = Astro.props;
 
-const titleCol =
-  titleSide === "end" ? "center / content-end" : "content-start / center";
-const contentCol =
-  titleSide === "end" ? "content-start / center" : "center / content-end";
+const isSubgrid = gridCol === "subgrid";
+const end = titleSide === "end";
+
+const titleCol = isSubgrid
+  ? end
+    ? "center / content-end"
+    : "content-start / center"
+  : end
+    ? "2"
+    : "1";
+const contentCol = isSubgrid
+  ? end
+    ? "content-start / center"
+    : "center / content-end"
+  : end
+    ? "1"
+    : "2";
 ---
 
 <section data-theme={theme}>
@@ -59,13 +72,17 @@ const contentCol =
       }
     }
     .grid {
-      /* display: grid;
+      display: grid;
+      gap: var(--standard-spacing);
       grid-template-columns: var(--gridCol);
-      grid-template-rows: var(--gridRow); */
+      grid-template-rows: var(--gridRow);
       .titleContainer {
         grid-column: var(--titleCol);
         grid-row: 1/2;
       }
+    }
+    .grid > :global(*:not(.titleContainer)) {
+      grid-column: var(--contentCol);
     }
 
     [data-theme="light"] {
