@@ -38,7 +38,7 @@ const contentCol =
 <style>
   @layer components {
     section {
-      grid-column: full-start / full-end;
+      grid-column: full;
       display: grid;
       grid-template-columns: subgrid;
       min-block-size: 40vh;
@@ -46,7 +46,7 @@ const contentCol =
       overflow: clip;
     }
     section > :global(*) {
-      grid-column: content-start / content-end;
+      grid-column: content;
     }
     .titleContainer {
       display: flex;
@@ -59,9 +59,9 @@ const contentCol =
       }
     }
     .grid {
-      display: grid;
+      /* display: grid;
       grid-template-columns: var(--gridCol);
-      grid-template-rows: var(--gridRow);
+      grid-template-rows: var(--gridRow); */
       .titleContainer {
         grid-column: var(--titleCol);
         grid-row: 1/2;

@@ -40,9 +40,6 @@ const Icon = icons[icon];
       <div class="iconContainer2">{Icon && <Icon />}</div>
     )
   }
-  <!-- <div class="iconContainer">
-    {Icon && <Icon />}
-  </div> -->
 
   <p>
     {title}
@@ -64,8 +61,9 @@ const Icon = icons[icon];
 <style>
   @layer components {
     .card {
-      flex: 1 0 50%;
+      flex: 1 1 50%;
       height: fit-content;
+      width: 450px;
       display: flex;
       flex-direction: column;
       padding: var(--standard-spacing);
@@ -75,6 +73,7 @@ const Icon = icons[icon];
         margin-block-start: var(--small-spacing);
       }
     }
+
     .iconContainer {
       width: var(--large-spacing);
       height: var(--large-spacing);
@@ -123,7 +122,6 @@ const Icon = icons[icon];
     }
     .card[data-theme="muted"] {
       background: var(--color-neutrals-200);
-      inline-size: 25ch;
     }
   }
 </style>

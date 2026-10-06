@@ -8,6 +8,7 @@ const {
   arrow,
   command,
   commandfor,
+  value,
   name,
   size = "small",
 } = Astro.props;
@@ -40,6 +41,7 @@ const Icon = icons[arrow];
       data-size={size}
       command={command}
       commandfor={commandfor}
+      value={value}
     >
       {title}
       {Icon && <Icon />}
@@ -47,6 +49,9 @@ const Icon = icons[arrow];
   )
 }
 <style>
+
+
+
   @layer Components {
     a,
     button {
@@ -103,7 +108,11 @@ const Icon = icons[arrow];
       margin-top: var(--small-spacing);
       font-size: 20px;
     }
-
+    [data-size="round"] {
+      padding: var(--small-spacing);
+      border-radius: var(--infinite-radius);
+      font-size: 20px;
+    }
 
 
     

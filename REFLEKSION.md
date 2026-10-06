@@ -51,15 +51,46 @@ Stadig ikke sikker på om det er fordi jeg har ændret indstillinger i browseren
 
 ---
 
-## Eksempel 1: Skriv navnet på et valgt benspænd
+## Eksempel 1: Indsætning af Icon'er udefra
 
 ### Hvor og hvorfor?
 
-Hvor i løsningen bruger I teknikken, og hvilket konkret problem løser den? Henvis gerne til en fil, fx `src/components/MinKomponent.astro`.
+I `@components/Cards/ValueCard.astro` skulle der være icon'er der blev valgt udefra.
 
 ### Relevant kode
 
-Indsæt en kort kodeblok fra jeres løsning. Vælg det passende sprog, og forklar den del, der er vigtig for jeres valg.
+Jeg løste dette ved at lave en ENUM hvor den får et icon navn gennem en astro prop (de bliver tildelt fra api'et).
+
+```astro
+---
+import Gear from "@icons/gear.svg";
+import Globe from "@icons/globe.svg";
+
+const {icon} = Astro.props;
+
+const icons = {
+  gear: Gear,
+  globe: Globe,
+  ...}
+
+const Icon = icons[icon];
+---
+```
+
+Siden indsætter jeg icon'et via
+
+```astro
+{Icon && <Icon />}
+```
+
+Hvor `&&` er en shorthand der sikrer at hvis `Icon` eksisterer så indsæt `<Icon />` som bliver til et af De importerede icon-components fx `<Gear />`
+
+```astro
+<div class="card" data-theme={theme}>
+      <div class="iconContainer">{Icon && <Icon />}</div>
+  ... Resten af kortet
+</div>
+```
 
 ### Afprøvning og ændringer
 
@@ -70,6 +101,12 @@ Indsæt en kort kodeblok fra jeres løsning. Vælg det passende sprog, og forkla
 ## Eksempel 2: Skriv navnet på et valgt benspænd
 
 Brug samme struktur som i eksempel 1: Hvor og hvorfor? Relevant kode. Afprøvning og ændringer.
+
+### Afprøvning og ændringer
+
+- **Vi testede:** Beskriv situationen, fx en smal skærm, lang tekst eller tastaturbetjening.
+- **Vi observerede:** Hvad skete der konkret?
+- **Vi ændrede eller mangler:** Hvad rettede I, eller hvad vil være næste skridt?
 
 ## Eksempel 3: Skriv navnet på et valgt benspænd
 

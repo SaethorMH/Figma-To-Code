@@ -1,28 +1,93 @@
 ---
 import ValueCard from "@components/Cards/ValueCard.astro";
 import { getFin } from "@lib/api";
+import LinkButton from "@components/Buttons/LinkButton.astro";
 const fin = await getFin();
 ---
 
-<div class="flexer">
-  {
-    fin.values.map((value) => (
-      <ValueCard
-        title={value.title}
-        icon={value.icon}
-        text={value.description}
-        theme="muted"
-      />
-    ))
-  }
+<div class="slider">
+  <div class="buttons">
+    <LinkButton
+      color="black"
+      arrow="left"
+      command="--scroll"
+      commandfor="flexer"
+      value="-0.1"
+      size="round"
+    />
+    <LinkButton
+      color="black"
+      arrow="right"
+      command="--scroll"
+      commandfor="flexer"
+      value="0.1"
+      size="round"
+    />
+  </div>
+
+  <div class="flexer" id="flexer">
+    {
+      fin.values.map((value) => (
+        <ValueCard
+          title={value.title}
+          icon={value.icon}
+          text={value.description}
+          theme="muted"
+        />
+      ))
+    }
+  </div>
 </div>
 
 <style>
   @layer components {
+    .slider {
+      container-type: inline-size;
+      position: relative;
+      padding-block: var(--standard-spacing);
+    }
+    .buttons {
+      position: absolute;
+      right: 0;
+      top: calc(var(--large-spacing) * -1);
+    }
     .flexer {
-      grid-column: content;
+      --inset: calc(50vw - 50cqw);
+
       display: flex;
       gap: var(--standard-spacing);
+      overflow-x: auto;
+
+      margin-inline: calc(-1 * var(--inset));
+
+      padding-inline: var(--inset);
+      scroll-padding-inline: var(--inset);
+
+      scroll-snap-type: x proximity;
+      scrollbar-width: none;
+    }
+
+    .flexer > :global(*) {
+      flex: 0 0 min(22rem, 85cqw);
+      scroll-snap-align: start;
     }
   }
 </style>
+<script>
+  const scroller = document.querySelector("#flexer");
+
+  function scrollByFactor(value) {
+    const factor = Number(value);
+    if (!Number.isFinite(factor)) return;
+    scroller.scrollBy({
+      left: scroller.clientWidth * factor,
+      behavior: "smooth",
+    });
+  }
+
+  scroller.addEventListener("command", (event) => {
+    if (event.command === "--scroll") {
+      scrollByFactor(event.source.value);
+    }
+  });
+</script>
