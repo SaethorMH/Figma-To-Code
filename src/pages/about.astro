@@ -50,7 +50,7 @@ import FAQ from "@components/About/FAQ.astro";
     text="Our success stems from the synergy between dedicated teams and our valued clients. We prioritize a company culture that fosters exceptional productivity, ensures customer satisfaction."
   >
     <LinkButton title="Meet the Team" color="black" size="medium" />
-    <div>
+    <div class="memberContainer">
       <MemberCard employee={team[0]} />
       <MemberCard employee={team[1]} />
     </div>
@@ -61,5 +61,9 @@ import FAQ from "@components/About/FAQ.astro";
   .flexer {
     display: flex;
     justify-content: space-around;
+  }
+  .memberContainer {
+    container: card / inline-size;
+    max-width: 48rem;
   }
 </style>

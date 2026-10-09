@@ -15,8 +15,8 @@ const { id, employee } = Astro.props;
 const social_icons = { instagram: Instagram, facebook: Facebook };
 ---
 
-<li class="cardContainer">
-  <a href={`/team/${employee.slug}`}>
+<li>
+  <a class="cardContainer" href={`/team/${employee.slug}`}>
     <Image
       style={`view-transition-name: img-${employee.slug}`}
       src={employee.image.src}
@@ -26,8 +26,9 @@ const social_icons = { instagram: Instagram, facebook: Facebook };
     />
     <h4>{employee.name}</h4>
     <p class="employeeTitle">{employee.title}</p>
+
+    <p class="description">{employee.description}</p>
   </a>
-  <p class="description">{employee.description}</p>
   <div class="slContainer">
     {
       employee.social_links.map((sl) => {
@@ -40,8 +41,10 @@ const social_icons = { instagram: Instagram, facebook: Facebook };
 
 <style>
   @layer Components {
+    li {
+      list-style: none;
+    }
     .cardContainer {
-      container: card / inline-size;
       anchor-scope: --imgAnchor;
 
       max-inline-size: 100%;
@@ -60,29 +63,67 @@ const social_icons = { instagram: Instagram, facebook: Facebook };
         text-decoration: none;
         color: var(--color-text);
       }
-      .slContainer {
-        display: flex;
-      }
-      @container (width <= 500px) {
-        .employeeTitle {
-          background-color: var(--color-ui-primary);
-          color: var(--color-on-ui-primary);
-          padding-inline: calc(var(--small-spacing) + 5px);
-          padding-block: var(--tiny-spacing);
-          border-radius: var(--medium-radius);
-          inline-size: fit-content;
 
-          position-anchor: --imgAnchor;
-          position: absolute;
-          position-area: center;
-          place-self: end;
-          margin: var(--tiny-spacing);
-        }
+      .employeeTitle {
+        background-color: var(--color-ui-primary);
+        color: var(--color-on-ui-primary);
+        padding-inline: calc(var(--small-spacing) + 5px);
+        padding-block: var(--tiny-spacing);
+        border-radius: var(--medium-radius);
+        inline-size: fit-content;
+        position-anchor: --imgAnchor;
+        position: absolute;
+        position-area: center;
+        place-self: end;
+        margin: var(--tiny-spacing);
       }
-
       .description {
         color: var(--color-text-muted);
       }
+    }
+    .slContainer {
+      display: flex;
+
+      place-self: center;
+      > * {
+        color: var(--color-text);
+      }
+    }
+    @container card (width <=50rem) {
+      .cardContainer {
+        width: 100%;
+        display: grid;
+        margin-block-end: var(--small-spacing);
+        grid-template-columns: minmax(0, 10rem) 1fr;
+        align-items: start;
+        justify-items: start;
+        text-align: start;
+
+        img {
+          grid-row: 1 / span 3;
+          inline-size: 100%;
+          block-size: auto;
+        }
+        h4,
+        .employeeTitle,
+        .description {
+          grid-column: 2;
+          place-items: center;
+        }
+        .employeeTitle {
+          position: relative;
+          place-self: start;
+          margin: 0;
+          background-color: white;
+          color: var(--color-ui-primary);
+        }
+      }
+      .slContainer {
+        display: none;
+      }
+    }
+
+    @container cardWrapper (width <= 50rem) {
     }
   }
 </style>

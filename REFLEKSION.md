@@ -56,40 +56,38 @@ Hvor `&&` er en shorthand der sikrer at hvis `Icon` eksisterer så indsæt `<Ico
 </div>
 ```
 
+## Eksempel 2: Details transition i forskellige bruvser.
+
+### Hvor og hvorfor
+
+På siden `@pages/about.astro` skulle der være en accordion FAQ, denne skulle helst have en lille animation på sig så den ikke bare "snap"ede fra lukket til åben. Sådanne animtioner er ikke fuldt supportet i alle browsere, så det skal være et fallback hvis den ikke er. I praksis har jeg dog gjort det omvendt med **Progressive Enchancement**, således at grunden er den samme, men dem der understøtter får mere.
+
+### Relavant kode
+
+Jeg difinerer først details'ne uden animationenerne, siden laver jeg en:
+`css  @supports (interpolate-size: allow-keywords) {...}`
+Denne `@supports` sikrer at koden inden i sig kun kører hvis browseren understøtter `interpolate-size: allow-keywords`, hvis ikke, ignorerer den den indlejrede kode.
+
 ### Afprøvning og ændringer
 
-- **Vi testede:** Beskriv situationen, fx en smal skærm, lang tekst eller tastaturbetjening.
-- **Vi observerede:** Hvad skete der konkret?
-- **Vi ændrede eller mangler:** Hvad rettede I, eller hvad vil være næste skridt?
+- **Vi testede:** Jeg testede i Chrome der uderstøtter, og siden i Firefox der ikke understøtter
+- **Vi observerede:** At det som forventet virkede i Chrome men ikke Firefox men begge havde den samme "grund" funktionalitet.
+- **Documentation:** [Interprolate-Size](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/interpolate-size)
 
-## Eksempel 2: Skriv navnet på et valgt benspænd
+## Eksempel 3: Team Member responsivitet
 
-Brug samme struktur som i eksempel 1: Hvor og hvorfor? Relevant kode. Afprøvning og ændringer.
+Kæmpede længe med at få team medlemmer kortene til at være resposive. Endte med at lave en container querie ud fra det de blev sat i.
 
-### Afprøvning og ændringer
+### Relevant kode
 
-- **Vi testede:** Beskriv situationen, fx en smal skærm, lang tekst eller tastaturbetjening.
-- **Vi observerede:** Hvad skete der konkret?
-- **Vi ændrede eller mangler:** Hvad rettede I, eller hvad vil være næste skridt?
+Jeg skrev
+`   @container card (width <=50rem) {...}` ind i `@components/Cards/MemberCard.astro`, den laver querie'en på forældre elementet der har container navnet card, `container: card / inline-size`.
 
-## Eksempel 3: Skriv navnet på et valgt benspænd
-
-Brug samme struktur som i eksempel 1: Hvor og hvorfor? Relevant kode. Afprøvning og ændringer.
-
-## Fallback og robusthed
-
-Dette må gerne indgå i de tre eksempler ovenfor. Hvis det allerede er dækket dér, kan I slette dette afsnit.
-
-- **Fallback/progressive enhancement:** Beskriv mindst ét konkret eksempel. Hvad oplever brugeren med og uden understøttelse? Link til dokumentation for den valgte feature, og angiv de browsere og versioner, I har testet.
-- **Defensive CSS:** Vis et konkret eksempel på, hvordan løsningen håndterer fx lang tekst eller lidt plads.
-- **Global CSS og komponent-CSS:** Forklar kort, hvad I har placeret hvor, og hvorfor.
+- **Global CSS og komponent-CSS:**
+  Global CSS har jeg defineret nogle store træk som bliver genbrugt flere steder i forskellige komponenter. Dér har jeg også brugt tokens til at definere generelle ting.
+  I komponenterne har jeg lavet den CSS, jeg vil have til at ramme det enkelte komponent (eller dens nærmeste elementer fx børn i `<slot />` via `:global()`)
 
 ## Brug af AI
 
-Hvis I har brugt AI til en væsentlig del af løsningen, så beskriv kort:
-
-- Hvad brugte I den til?
-- Hvad ændrede eller fravalgte I i svaret?
-- Hvad lærte I, og hvordan kontrollerede I løsningen?
-
-Hvis I ikke har brugt AI, kan I blot skrive det. I skal ikke indsætte en komplet chatlog.
+Jeg har ikke brugt AI til meget andet end en mere fejlfinding med forklaringer, da den ofte ville komme med bud på andre måder at gøre tingene på som vi ikke havde lært det i timerne, som ikke gav mening i den fulde kontekst.
+Dette bestod oftest af at smide hele komponentet ind i Claude.ai og spørge om noget specifikt fx. "Hvorfor flugter denne component ikke med content-start".
